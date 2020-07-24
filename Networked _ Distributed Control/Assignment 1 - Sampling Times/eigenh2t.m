@@ -1,0 +1,10 @@
+function [lambda] = eigenh2t(h,td,A,S,B,K)
+z=h-td;
+expAh =  [exp(72*h) (exp(72*h)-exp(2.7*h))/7.7;0 exp(2.7*h)];
+expAht = [exp(72*z) (exp(72*z)-exp(2.7*z))/7.7;0 exp(2.7*z)];
+intexpAht = A\(expAht - eye(2))*B;
+intexpAhht = A\(expAh - expAht)*B;
+F = [expAh intexpAhht intexpAht; zeros(1,3) 1; zeros(1,4)];
+G = [zeros(3,1);1];
+Adt = F-G*[K 0 0];
+lambda = eig(Adt);

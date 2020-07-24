@@ -1,0 +1,10 @@
+function [lambda] = eigenht(h,t,A,S,B,K)
+z=h-t;
+expAh =  [exp(72*h) (exp(72*h)-exp(2.7*h))/7.7;0 exp(2.7*h)];
+expAht = [exp(72*z) (exp(72*z)-exp(2.7*z))/7.7;0 exp(2.7*z)];
+intexpAht = A\(expAht - eye(2))*B;
+intexpAhht = A\(expAh - expAht)*B;
+F = [expAh intexpAhht; zeros(1,3)];
+G = [intexpAht; 1];
+Adt = F-G*[K 0];
+lambda = eig(Adt);
