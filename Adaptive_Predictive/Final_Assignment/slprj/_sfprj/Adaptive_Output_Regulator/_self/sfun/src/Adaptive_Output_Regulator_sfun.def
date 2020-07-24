@@ -1,0 +1,3 @@
+LIBRARY Adaptive_Output_Regulator_sfun.mexw64
+EXPORTS
+mexFunction
