@@ -1,0 +1,35 @@
+clear
+close all
+clc
+%% Loading
+load('HighIsTheNewLowIn.mat')
+U_id = data.Data;
+load('HighIsTheNewLowout.mat')
+Y_id = data.Data;
+%% Selecting
+h = 0.001;
+s = 10;
+n = 4;
+t1 = 40;
+t2 = 41;
+Y_id = Y_id(t1/h:t2/h);
+U_id = U_id(t1/h:t2/h);
+%% NASID
+DAT = iddata(Y_id,U_id,h);
+optCVA = n4sidOptions('N4weight','CVA');
+optSSARX = n4sidOptions('N4weight','SSARX');
+sys_CVA = n4sid(DAT,n,optCVA);
+sys_SSARX = n4sid(DAT,n,optSSARX);
+%% Check
+obsCVA = []; conCVA = [];
+for i=1:n
+    obsCVA = [obsCVA;sys_CVA.C*sys_CVA.A^(i-1)];
+    conCVA = [conCVA sys_CVA.A^(i-1)*sys_CVA.B];
+end
+if rank(obsCVA) ~= n 
+    error('System not Observable')
+elseif rank(conCVA) ~= n
+    error('System not Controllable')
+else
+    fprintf('System Identification Complete\n')
+end
