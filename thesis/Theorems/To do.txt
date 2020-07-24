@@ -1,0 +1,3 @@
+Jensen inequality
+Cauchy Schwartz
+Bregman divergence
