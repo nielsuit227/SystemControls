@@ -1,0 +1,26 @@
+CC     = "C:\Program Files\MATLAB\R2016b\sys\lcc64\lcc64\bin\lcc64.exe"
+LD     = "C:\Program Files\MATLAB\R2016b\sys\lcc64\lcc64\bin\lcclnk64.exe"
+LIBCMD = "C:\Program Files\MATLAB\R2016b\sys\lcc64\lcc64\bin\lcclib64.exe"
+CFLAGS = -dll -noregistrylookup  -c -Zp8 -DLCC_WIN64 -DMATLAB_MEX_FILE -DMX_COMPAT_32 -nodeclspec 
+LDFLAGS = -s -dll -L"C:\Program Files\MATLAB\R2016b\sys\lcc64\lcc64\lib64" -entry LibMain -map sfun.map 
+LIBFLAGS = 
+
+OBJECTS = \
+	"Regulator_Solver_2016_sfun.obj"\
+	"c1_Regulator_Solver_2016.obj"\
+	"Regulator_Solver_2016_sfun_registry.obj"\
+	"lccstub.obj"\
+
+INCLUDE_PATH= -I"C:\Program Files\MATLAB\R2016b\sys\lcc64\lcc64\include64"  -I"C:\Program Files\MATLAB\R2016b\extern\include"  -I"C:\Program Files\MATLAB\R2016b\simulink\include"  -I"C:\Program Files\MATLAB\R2016b\simulink\include\sf_runtime"  -I"C:\Program Files\MATLAB\R2016b\stateflow\c\mex\include"  -I"C:\Program Files\MATLAB\R2016b\rtw\c\src"  -I"C:\Users\Niels\Documents\MATLAB\Systems & Controls\Adaptive & Predictive\Final - Adaptive Regulator\Distributed Observer\slprj\_sfprj\Regulator_Solver_2016\_self\sfun\src" 
+ 
+
+Regulator_Solver_2016_sfun.mexw64 : $(MAKEFILE) $(OBJECTS)
+	$(LD) $(LDFLAGS) -o Regulator_Solver_2016_sfun.mexw64 @Regulator_Solver_2016_sfun.lmko
+Regulator_Solver_2016_sfun.obj :	"Regulator_Solver_2016_sfun.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "Regulator_Solver_2016_sfun.c"
+c1_Regulator_Solver_2016.obj :	"c1_Regulator_Solver_2016.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c1_Regulator_Solver_2016.c"
+Regulator_Solver_2016_sfun_registry.obj :	"Regulator_Solver_2016_sfun_registry.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "Regulator_Solver_2016_sfun_registry.c"
+lccstub.obj :	"C:\Program Files\MATLAB\R2016b\sys\lcc64\lcc64\mex\lccstub.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "C:\Program Files\MATLAB\R2016b\sys\lcc64\lcc64\mex\lccstub.c"

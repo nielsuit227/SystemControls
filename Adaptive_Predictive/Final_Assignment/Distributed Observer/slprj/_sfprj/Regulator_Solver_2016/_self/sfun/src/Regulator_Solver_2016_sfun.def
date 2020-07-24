@@ -1,0 +1,3 @@
+LIBRARY Regulator_Solver_2016_sfun.mexw64
+EXPORTS
+mexFunction
